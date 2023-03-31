@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../absence-service/absence-service.iml" filepath="$PROJECT_DIR$/../absence-service/absence-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../config-service/config-service.iml" filepath="$PROJECT_DIR$/../config-service/config-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../employee-service/employee-service.iml" filepath="$PROJECT_DIR$/../employee-service/employee-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gateway-service/gateway-service.iml" filepath="$PROJECT_DIR$/../gateway-service/gateway-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../leave-service/leave-service.iml" filepath="$PROJECT_DIR$/../leave-service/leave-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/onboard-app.iml" filepath="$PROJECT_DIR$/onboard-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../overtime-service/overtime-service.iml" filepath="$PROJECT_DIR$/../overtime-service/overtime-service.iml" />
+    </modules>
+  </component>
+</project>
