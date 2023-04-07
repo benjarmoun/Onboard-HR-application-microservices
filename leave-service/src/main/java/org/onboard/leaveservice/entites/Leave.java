@@ -1,10 +1,7 @@
 package org.onboard.leaveservice.entites;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.onboard.leaveservice.models.Employee;
 
 import java.util.Date;
@@ -14,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Leave {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,19 +19,19 @@ public class Leave {
 
     @Basic
     @Column(name = "employee_id", nullable = false)
-    private Long employee_id;
+    private Long employeeId;
 
     @Basic
     @Column(name = "numb_of_days", nullable = false)
-    private Double numb_of_days;
+    private Long numbOfDays;
 
     @Basic
     @Column(name = "start_date", nullable = false)
-    private Date start_date;
+    private Date startDate;
 
     @Basic
     @Column(name = "end_date", nullable = false)
-    private Date end_date;
+    private Date endDate;
 
     @Basic
     @Column(name = "status", nullable = false)
