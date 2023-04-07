@@ -39,7 +39,7 @@ public class RhController {
         Employee employee = employeeService.getEmployeeById(id);
         return ResponseEntity.status(200).body(employee);
     }
-    @GetMapping("employee")
+    @GetMapping("employee") //to employee
     public ResponseEntity<Object> getAccountByEmail(HttpServletRequest httpSerReq){
         String email = employeeService.getEmail(httpSerReq);
         return ResponseEntity.ok(employeeService.getEmployeeByEmail(email));
@@ -55,7 +55,6 @@ public class RhController {
 
     @PostMapping("/addContract")
     public ResponseEntity<String> addContract(@RequestBody ContractDto contractDto) throws MissingFieldsException, EmployeeIdNotFoundException {
-        System.out.println("input: "+ contractDto);
         Contract contract = contractService.createContract(contractDto);
         if(contract != null){
             if (employeeService.addContractToEmployee(contractDto.getEmployeeId(), contract) != null)

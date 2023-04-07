@@ -27,4 +27,6 @@ public interface EmployeeService {
     EmployeeOutputDto addContractToEmployee(Long employeeId, Contract contract) throws EmployeeIdNotFoundException;
 
     String getEmail(HttpServletRequest httpSerReq);
+
+    Long getEmpId(HttpServletRequest httpSerReq);
 }

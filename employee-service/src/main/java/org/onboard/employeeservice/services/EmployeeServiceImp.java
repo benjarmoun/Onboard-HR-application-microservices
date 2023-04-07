@@ -142,4 +142,13 @@ public class EmployeeServiceImp implements EmployeeService{
         }
         return null;
     }
+
+    @Override
+    public Long getEmpId(HttpServletRequest httpSerReq){
+        Long id = getEmployeeByEmail(getEmail(httpSerReq)).getId();
+        return id;
+    }
+
+
+
 }

@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeHttpRequests()
-                    .requestMatchers("/rh/**").hasAnyAuthority(Enum.role.RH.toString())
+                    .requestMatchers("/*").hasAnyAuthority(Enum.role.RH.toString())
                     .and()
                     .authorizeHttpRequests()
                     .requestMatchers("/employee/**").hasAnyAuthority(Enum.role.Employee.toString())
