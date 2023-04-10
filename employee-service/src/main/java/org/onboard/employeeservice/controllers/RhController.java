@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -95,6 +96,12 @@ public class RhController {
         return ResponseEntity.ok(leave);
     }
 
+    @GetMapping("LeavesByEmpId/{id}")
+    public ResponseEntity<Object> leavesByEmpId(@PathVariable Long id){
+        List<Leave> leave =  leaveRestClientService.getLeavesByEmpId(id);
+        return ResponseEntity.ok(leave);
+    }
+
     @GetMapping("allLeaves")
     public ResponseEntity<Object> leaves() {
         List<Leave> leave = leaveRestClientService.getAllLeaves();
@@ -113,6 +120,11 @@ public class RhController {
     @GetMapping("pendingLeaveRequests")
     public ResponseEntity<Object> getPendingLeaveRequests(){
         List<Leave> leaves = leaveRestClientService.getPendingLeave();
+        leaves.stream()
+                .forEach(leave -> leave.setEmployee(employeeService.getEmployeeById(leave.getEmployeeId())));
+//                .map(leave -> leave.setEmployee(employeeService.getEmployeeById(leave.getEmployeeId())))
+//                .collect(Collectors.toList());
+
         return ResponseEntity.status(200).body(leaves);
     }
 
