@@ -95,6 +95,7 @@ public class LeaveController {
     @GetMapping("upcomingLeaves")
     public List<Leave> upcomingLeaves(){
         List<Leave> filteredLeaves = leaveService.comingLeaves();
+
         return filteredLeaves;
     }
 
