@@ -149,6 +149,9 @@ public class RhController {
     @GetMapping("upcomingLeaves")
     public ResponseEntity<Object> upcomingLeaves() {
         List<Leave> leave = leaveRestClientService.getUpcomingLeaves();
+        leave.stream()
+                .forEach(leave1 -> leave1.setEmployee(employeeService.getEmployeeById(leave1.getEmployeeId())));
+
         return ResponseEntity.ok(leave);
     }
 
