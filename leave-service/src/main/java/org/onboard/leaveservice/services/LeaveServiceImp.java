@@ -143,6 +143,7 @@ public class LeaveServiceImp implements LeaveService{
         List<Leave> leave =  leaveRepository.findAll();
         List<Leave> filteredLeaves = leave.stream()
                 .filter(leave1 -> leave1.getEndDate().compareTo(new Date()) > 0)
+                .filter(e -> e.getStatus().equals(Enum.status.Confirmed.toString()) || e.getStatus().equals(Enum.status.Rejected.toString()))
                 .sorted(Comparator.comparing(Leave::getEndDate))
                 .collect(Collectors.toList());
         return filteredLeaves;
