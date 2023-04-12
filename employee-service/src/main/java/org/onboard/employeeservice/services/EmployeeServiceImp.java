@@ -113,6 +113,12 @@ public class EmployeeServiceImp implements EmployeeService{
     }
 
     @Override
+    public List<Employee>  getEmployeesWithNoContract() {
+        List<Employee> employee = employeeRepository.findByContractIsNull();
+        return employee;
+    }
+
+    @Override
     public EmployeeOutputDto addContractToEmployee(Long employeeId, Contract contract) throws EmployeeIdNotFoundException {
         Employee emp = employeeRepository.findById(employeeId).orElse(null);
         if(emp == null){

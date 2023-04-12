@@ -49,5 +49,8 @@ public interface LeaveRestClientService {
     @GetMapping("usedLeaveDays/{id}")
     public LeaveDaysDto usedLeaveDaysByEmpId(@PathVariable Long id);
 
+    @GetMapping("employeeUpcomingLeave/{id}")
+    public List<Leave> getUpcomingLeavesByEmpId(@PathVariable Long id);
+
 
 }

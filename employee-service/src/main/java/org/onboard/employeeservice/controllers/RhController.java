@@ -77,9 +77,7 @@ public class RhController {
 
     @PutMapping("updateEmployee/{id}")
     public ResponseEntity<Object> updateEmployee(@PathVariable Long id, @RequestBody EmployeeInputDto employeeInputDto) throws MissingFieldsException, EmployeeIdNotFoundException {
-        System.out.println("             Dkheeeeerrrrrl           " + employeeInputDto);
         EmployeeOutputDto emp = employeeService.updateEmployee(id, employeeInputDto);
-        System.out.println("emmmmmmmp "+ emp);
         return ResponseEntity.ok("success");
     }
 
@@ -92,14 +90,31 @@ public class RhController {
     @GetMapping("LeavesByEmployee")  //to employee
     public ResponseEntity<Object> leavesByEmployee(HttpServletRequest httpSerReq){
         Long id = employeeService.getEmpId(httpSerReq);
-        List<Leave> leave =  leaveRestClientService.getLeavesByEmpId(id);
-        return ResponseEntity.ok(leave);
+        List<Leave> leaves =  leaveRestClientService.getLeavesByEmpId(id);
+        leaves.stream()
+                .forEach(leave -> leave.setEmployee(employeeService.getEmployeeById(leave.getEmployeeId())));
+        return ResponseEntity.ok(leaves);
     }
 
     @GetMapping("LeavesByEmpId/{id}")
     public ResponseEntity<Object> leavesByEmpId(@PathVariable Long id){
         List<Leave> leave =  leaveRestClientService.getLeavesByEmpId(id);
         return ResponseEntity.ok(leave);
+    }
+
+    @GetMapping("employeeUpcomingLeaves")
+    public ResponseEntity<Object> upcomingLeavesByEmp(HttpServletRequest httpSerReq){
+        Long id = employeeService.getEmpId(httpSerReq);
+        List<Leave> leaves =  leaveRestClientService.getUpcomingLeavesByEmpId(id);
+        leaves.stream()
+                .forEach(leave -> leave.setEmployee(employeeService.getEmployeeById(leave.getEmployeeId())));
+        return ResponseEntity.ok(leaves);
+    }
+
+    @GetMapping("noContractEmployees")
+    public ResponseEntity<Object> getEmployeesNoContract() {
+        List<Employee> employees = employeeService.getEmployeesWithNoContract();
+        return ResponseEntity.status(200).body(employees);
     }
 
     @GetMapping("allLeaves")
@@ -122,8 +137,6 @@ public class RhController {
         List<Leave> leaves = leaveRestClientService.getPendingLeave();
         leaves.stream()
                 .forEach(leave -> leave.setEmployee(employeeService.getEmployeeById(leave.getEmployeeId())));
-//                .map(leave -> leave.setEmployee(employeeService.getEmployeeById(leave.getEmployeeId())))
-//                .collect(Collectors.toList());
 
         return ResponseEntity.status(200).body(leaves);
     }

@@ -24,6 +24,8 @@ public interface EmployeeService {
 
     Employee getEmployeeById(Long id);
 
+    List<Employee>  getEmployeesWithNoContract();
+
     EmployeeOutputDto addContractToEmployee(Long employeeId, Contract contract) throws EmployeeIdNotFoundException;
 
     String getEmail(HttpServletRequest httpSerReq);

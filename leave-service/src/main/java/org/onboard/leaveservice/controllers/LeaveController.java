@@ -56,6 +56,15 @@ public class LeaveController {
         List<Leave> leave = leaveService.getLeaveByEmpId(id);
         return leave;
     }
+    @GetMapping("employeeUpcomingLeave/{id}")
+    public List<Leave> getUpcomingLeavesByEmpId(@PathVariable Long id){
+        List<Leave> leave = leaveService.getLeaveByEmpId(id);
+        leave = leave.stream()
+                .filter(leave1 -> leave1.getStartDate().compareTo(new Date()) > 0)
+                .sorted(Comparator.comparing(Leave::getEndDate))
+                .collect(Collectors.toList());
+        return leave;
+    }
     @GetMapping("allLeave")
     public List<Leave> getAllLeave(){
         List<Leave> leave = leaveService.allLeaves();
