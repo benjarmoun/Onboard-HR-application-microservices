@@ -39,6 +39,12 @@ public class RhController {
         return ResponseEntity.status(200).body(employees);
     }
 
+    @GetMapping("allContracts")
+    public ResponseEntity<Object> getAllContracts() {
+        List<Contract> contracts = contractService.allContracts();
+        return ResponseEntity.status(200).body(contracts);
+    }
+
     @GetMapping("employee/{id}")
     public ResponseEntity<Object> getEmployee(@PathVariable Long id){
         Employee employee = employeeService.getEmployeeById(id);
