@@ -1,6 +1,7 @@
 package org.onboard.employeeservice.mappers;
 
 import org.onboard.employeeservice.dto.ContractDto;
+import org.onboard.employeeservice.dto.ContractEmployee;
 import org.onboard.employeeservice.dto.EmployeeInputDto;
 import org.onboard.employeeservice.dto.EmployeeOutputDto;
 import org.onboard.employeeservice.entities.Contract;
@@ -40,6 +41,12 @@ public class MapperService {
 
     public ContractDto fromContract(Contract contract){
         ContractDto contractDto = new ContractDto();
+        BeanUtils.copyProperties(contract, contractDto);
+        return contractDto;
+    }
+
+    public ContractEmployee fromContractToContractEmp(Contract contract){
+        ContractEmployee contractDto = new ContractEmployee();
         BeanUtils.copyProperties(contract, contractDto);
         return contractDto;
     }

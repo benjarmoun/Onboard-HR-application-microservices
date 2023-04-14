@@ -2,15 +2,13 @@ package org.onboard.employeeservice.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.onboard.employeeservice.dto.ContractDto;
-import org.onboard.employeeservice.dto.EmployeeInputDto;
-import org.onboard.employeeservice.dto.EmployeeOutputDto;
-import org.onboard.employeeservice.dto.LeaveDto;
+import org.onboard.employeeservice.dto.*;
 import org.onboard.employeeservice.entities.Contract;
 import org.onboard.employeeservice.entities.Employee;
 import org.onboard.employeeservice.exeptions.EmployeeEmailExistException;
 import org.onboard.employeeservice.exeptions.EmployeeIdNotFoundException;
 import org.onboard.employeeservice.exeptions.MissingFieldsException;
+import org.onboard.employeeservice.mappers.MapperService;
 import org.onboard.employeeservice.models.Leave;
 import org.onboard.employeeservice.services.ContractServiceImp;
 import org.onboard.employeeservice.services.EmployeeService;
@@ -19,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +28,8 @@ public class RhController {
     EmployeeService employeeService;
     ContractServiceImp contractService;
     LeaveRestClientService leaveRestClientService;
+    private MapperService mapperService;
+
 
 
 
@@ -42,7 +43,16 @@ public class RhController {
     @GetMapping("allContracts")
     public ResponseEntity<Object> getAllContracts() {
         List<Contract> contracts = contractService.allContracts();
-        return ResponseEntity.status(200).body(contracts);
+        List<ContractEmployee> ctr = new ArrayList<>();
+
+        ctr = contracts.stream()
+                .map(c -> {
+                    ContractEmployee ce = mapperService.fromContractToContractEmp(c);
+                    ce.setEmployee(employeeService.getEmployeesByContractId(c));
+                    return ce;
+                })
+                .collect(Collectors.toList());
+        return ResponseEntity.status(200).body(ctr);
     }
 
     @GetMapping("employee/{id}")
